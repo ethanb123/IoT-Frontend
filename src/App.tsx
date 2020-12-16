@@ -11,7 +11,7 @@ import DevicePage from "views/DevicesPage";
 import Data from "views/Data";
 import GatewayPage from "views/GatewayPage";
 import HomePage from "views/HomePage";
-
+import EditPage from "views/EditPage";
 /* 
       ^- ToDo Landing page -^ 
   -stats:
@@ -70,6 +70,10 @@ function App() {
 
             <Route path="/helppage">
               <HelpPage />
+            </Route>
+
+            <Route path="/editpage">
+               <EditPage />
             </Route>
 
           </Switch>

@@ -6,6 +6,7 @@ import {
 import { Device } from "../redux/devices-state";
 import devicesService from "devices/services/devices-service";
 import Axios from "axios";
+import { useHistory } from "react-router-dom";
 
 interface DevicesTableProps {
     devices?: Device[];
@@ -21,6 +22,13 @@ function gatewayLabelGen (isGateway?: boolean) {
 
 export default function DevicesTable({ devices }: DevicesTableProps): JSX.Element {
     
+    let history = useHistory()
+    function onClick(id: any) {
+        history.push("/EditPage/"+id) 
+        window.location.reload()
+    }
+    
+
     return <Table className="align-items-center" responsive hover striped>
         <thead className="thead-light">
             <tr>
@@ -86,12 +94,9 @@ export default function DevicesTable({ devices }: DevicesTableProps): JSX.Elemen
                             ) }>Delete</Button>
                         </th>
                         
+
                         <th scope="row">
-                        
-                        <Button outline color="danger" onClick={ (e) =>
-                            console.log(devicesService.edit(device),
-                            window.location.reload()
-                            ) }>Edit</Button>
+                        <Button outline color="danger" onClick={(e) => onClick(device.id)}>Edit</Button> 
                         </th>
                         
 
