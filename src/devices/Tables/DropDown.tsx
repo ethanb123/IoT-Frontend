@@ -111,7 +111,7 @@ function countZWave ( devices: any ){
 }
 
 export default function DropDown({ devices }: DevicesTableProps): JSX.Element {
-    {console.log(devices)}
+    
     var [state, setState] = React.useState(false);
     var [deviceType, setDeviceType] = React.useState('Test Drop Down');
 

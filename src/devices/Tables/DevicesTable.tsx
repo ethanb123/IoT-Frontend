@@ -20,7 +20,7 @@ export function DevicesTable({ devices }: DevicesTableProps): JSX.Element {
     let history = useHistory()
 
     return <Table className="align-items-center" responsive hover striped>
-
+        
         <thead className="thead-light">
             <tr>
                 {["Name"].map((name) => (

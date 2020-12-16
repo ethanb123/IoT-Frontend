@@ -57,7 +57,7 @@ function findGateways( devices: any ) {
 }
 
 export default function DevicesForm({ loading, onCreateDevice, }: DevicesFormProps, { devices }: DevicesTableProps): JSX.Element {
-    const { errors, control, handleSubmit } = useForm<FormInput>();
+    const { register, errors, control, handleSubmit } = useForm<FormInput>();
     var [state, setState] = React.useState(false);
     var [deviceType, setDeviceType] = React.useState('Select Device Type');
 
@@ -66,7 +66,7 @@ export default function DevicesForm({ loading, onCreateDevice, }: DevicesFormPro
     }
 
     const onSubmitDevice = (data: FormInput) => {
-        window.location.reload()
+        //window.location.reload()
         onCreateDevice(data.name, data.macAddress, data.ip, false, deviceType, data.cpID);
     };
 
@@ -77,32 +77,6 @@ export default function DevicesForm({ loading, onCreateDevice, }: DevicesFormPro
                 </div>
         }
     }
-    /*
-    export default function DevicesForm({ loading, onCreateDevice }: DevicesFormProps): JSX.Element {
-        const { register, errors, control, handleSubmit } useForm<FormInput>();
-        const onSubmit = (data: FormInput) => {
-            onCreateDevice(data.name, data.macAddress, data.conName);
-            let value = data.macAddress;
-            let regMac = new RegMac("^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$");
-            if(!regEx.test(value)){
-                console.log("Not Good");
-            }
-        };
-    }*/
-
-    /*
-    export default function DevicesForm({ loading, onCreateDevice }: DevicesFormProps): JSX.Element {
-        const { register, errors, control, handleSubmit } useForm<FormInput>();
-        const onSubmit = (data: FormInput) => {
-            onCreateDevice(data.name, data.ip, data.conName);
-            let value = data.ip;
-            let regIp = new RegIp("^([0-9]{1-3}[.]){3}([0-9]{1-3})$");
-            if(!regEx.test(value)){
-                console.log("Not Good");
-            }
-        };
-    }*/
-    
     
     return <Card className="col-lg-6">
         
@@ -139,6 +113,7 @@ export default function DevicesForm({ loading, onCreateDevice, }: DevicesFormPro
                         placeholder="Mac Address"
                         id="macAddress"
                         rules={{ required: true }}
+                        pattern="^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$"
                     />
                     {errors.macAddress &&
                         <div className="alert alert-danger" role="alert">
@@ -155,6 +130,7 @@ export default function DevicesForm({ loading, onCreateDevice, }: DevicesFormPro
                         placeholder="IP Address"
                         id="ip"
                         rules={{ required: true }}
+                        pattern = "^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
                     />
                     {errors.ip &&
                         <div className="alert alert-danger" role="alert">

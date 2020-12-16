@@ -108,7 +108,33 @@ function countZWave ( devices: any ){
     })}
     return totalZWave
 }
-    
+
+function pieWiFi(devices: any){
+    let value = countWiFi(devices)
+    if(value === 0){
+        return 1
+    }else{
+        return value
+    }
+}
+
+function pieZigbee(devices: any){
+    let value = countZigbee(devices)
+    if(value === 0){
+        return 1
+    }else{
+        return value
+    }
+}
+
+function pieZWave(devices: any){
+    let value = countZWave(devices)
+    if(value === 0){
+        return 1
+    }else{
+        return value
+    }
+}    
 
 export default function HomePageTable({ devices }: DevicesTableProps): JSX.Element {
     
@@ -168,9 +194,9 @@ export default function HomePageTable({ devices }: DevicesTableProps): JSX.Eleme
                     fontSize: "8px",
                 }}
                 data={[
-                    { title: 'WiFi', value: countWiFi( devices ), color: '#aee6e6' },
-                    { title: 'Zigbee', value: countZigbee( devices ), color: '#fbf6f0' },
-                    { title: 'Z-Wave', value: countZWave( devices ), color: '#f3eac2' },
+                    { title: 'WiFi', value: pieWiFi( devices ), color: '#aee6e6' },
+                    { title: 'Zigbee', value: pieZigbee( devices ), color: '#fbf6f0' },
+                    { title: 'Z-Wave', value: pieZWave( devices ), color: '#f3eac2' },
                 ]}
             />
         </div>

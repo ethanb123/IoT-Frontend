@@ -43,6 +43,7 @@ function Devices({
 
     return (
         <>
+        
             <Container className="mt--6 d-flex justify-content-center" >
                 <Col >
                     <Row className="justify-content-md-center">
