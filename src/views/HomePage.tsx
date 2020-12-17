@@ -10,7 +10,7 @@ import {
 } from "reactstrap";
 import { actions as devicesActions } from "../devices/redux/devices-actions";
 import { actions as systemActions } from "../redux/system-actions";
-import DevicesForm from "../devices/DevicesForm";
+import { DevicesForm } from "../devices/DevicesForm";
 import GatewayForm from "../devices/GatewayForm";
 import { DevicesTable } from "../devices/Tables/DevicesTable";
 import HomePageTable from "../devices/Tables/HomePageTable";

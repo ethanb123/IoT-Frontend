@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
     Card,
     CardHeader,
@@ -16,12 +16,11 @@ import {
 } from "reactstrap";
 import { useForm, Controller } from "react-hook-form";
 import { Device } from "./redux/devices-state";
-import { DropDown } from "./Tables/DropDown"
+//import DropDown  from "./Tables/DropDown"
+import DropDown from "./Tables/DropDown"
 import devicesService from "devices/services/devices-service";
+import Axios from "axios";
 
-interface DevicesTableProps {
-    devices?: Device[];
-}
 
 interface FormInput {
     name: string;
@@ -34,6 +33,7 @@ interface FormInput {
 interface DevicesFormProps {
     loading: boolean;
     onCreateDevice: (name: string, macAddress: string, ip: string, isGateway: boolean, deviceType: string, cpID: number) => void;
+    devices?: Device[];
 }
 
 function findGateways( devices: any ) {
@@ -56,7 +56,7 @@ function findGateways( devices: any ) {
     return Gateways;
 }
 
-export default function DevicesForm({ loading, onCreateDevice, }: DevicesFormProps, { devices }: DevicesTableProps): JSX.Element {
+export function DevicesForm({ loading, onCreateDevice, devices }: DevicesFormProps): JSX.Element {
     
     const { register, errors, control, handleSubmit } = useForm<FormInput>();
     var [state, setState] = React.useState(false);
@@ -78,6 +78,48 @@ export default function DevicesForm({ loading, onCreateDevice, }: DevicesFormPro
                 </div>
         }
     }
+
+    async function printOut(){
+        (await data)?.map((device: any) => {
+            console.log(device)
+        })
+    }
+    
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const toggle = () => { setDropdownOpen(!dropdownOpen) }
+    const [gateways, setGateways] = useState([]);
+    const [selectedGateway, setSelectedGateway] = useState(null);
+
+   
+
+    const handleGateway = (name: any) => {
+        setSelectedGateway(name);
+        setDropdownOpen(false);
+    }
+
+    async function getData(){
+        let data: any[] = [];
+        let arrayOfGateways: any[] = [];
+
+        await Axios.get('http://localhost:8080/devices')
+          .then(function (response) {
+            data = response.data._embedded.devices
+            data?.map((device) => {
+                arrayOfGateways.push(device)
+            })
+            console.log()
+          })
+          
+          .catch(function (error) {
+            console.log(error);
+          });
+
+        //return arrayOfGateways
+        return Promise.resolve(data)
+    }
+    
+    //let data1: any[] = []
+    let data = Promise.resolve(getData())
     
     return <Card className="col-lg-6">
 
@@ -178,7 +220,21 @@ export default function DevicesForm({ loading, onCreateDevice, }: DevicesFormPro
                                 </div>}
                 </FormGroup>
 
-                <DropDown />
+                {/*<DropDown />*/}
+                <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+                <DropdownToggle caret>
+                    {selectedGateway?selectedGateway:"Selected Gateway"}
+                </DropdownToggle>
+                    <DropdownMenu>
+                        {console.log('test')}
+                        {console.log(devices)}
+                        {devices?.map(device=> {
+                            console.log(device.name)
+                            return <DropdownItem onClick={()=>handleGateway(device.name)}> {device.name}
+                                </DropdownItem>
+                        })}
+                    </DropdownMenu>
+                </Dropdown>
 
                 <br />
     

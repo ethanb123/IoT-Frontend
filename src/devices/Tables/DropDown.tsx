@@ -8,111 +8,8 @@ interface DevicesTableProps {
     devices?: Device[];
 }
 
-function countDevicesGateways ( devices: any ){
-    let totalDevicesGateways = 0;
-    {devices?.map((device: any) => {        
-        return (
-            <br key={device.id}>
-                {totalDevicesGateways++}
-            </br>
-        )
-    })}
-    return totalDevicesGateways
-}
-
-function countDevices ( devices: any ){
-    let totalDevices = 0;
-    function isGateway(device: any) {
-        if(!device.isGateway) {
-            totalDevices++
-        }
-        return ""
-    }
-    {devices?.map((device: any) => {        
-        return (
-            <br key={device.id}>
-                {isGateway(device)}
-            </br>
-        )
-    })}
-    return totalDevices
-}
-
-function countGateways ( devices: any ){
-    let totalGateways = 0;
-    function isGateway(device: any) {
-        if(device.isGateway) {
-            totalGateways++
-        }
-        return ""
-    }
-    {devices?.map((device: any) => {        
-        return (
-            <br key={device.id}>
-                {isGateway(device)}
-            </br>
-        )
-    })}
-    return totalGateways
-}
-
-function countWiFi ( devices: any ){
-    let totalWiFi = 0;
-    function isWiFi(device: any) {
-        if(device.deviceType === 'WiFi') {
-            totalWiFi++
-        }
-        return ""
-    }
-    {devices?.map((device: any) => {        
-        return (
-            <br key={device.id}>
-                {isWiFi(device)}
-            </br>
-        )
-    })}
-    return totalWiFi
-}
-
-function countZigbee ( devices: any ){
-    let totalZigbee = 0;
-    function isZigbee(device: any) {
-        if(device.deviceType === 'Zigbee') {
-            totalZigbee++
-        }
-        return ""
-    }
-    {devices?.map((device: any) => {        
-        return (
-            <br key={device.id}>
-                {isZigbee(device)}
-            </br>
-        )
-    })}
-    return totalZigbee
-}
-
-function countZWave ( devices: any ){
-    let totalZWave = 0;
-    function isZWave(device: any) {
-        if(device.deviceType === 'Z-Wave') {
-            totalZWave++
-        }
-        return ""
-    }
-    {devices?.map((device: any) => {        
-        return (
-            <br key={device.id}>
-                {isZWave(device)}
-            </br>
-        )
-    })}
-    return totalZWave
-}
-
-export function DropDown({ devices }: DevicesTableProps): JSX.Element {
+export default function DropDown({ devices }: DevicesTableProps): JSX.Element {
     
-
     async function getData(){
         let data: any[] = [];
         let arrayOfGateways: any[] = [];
@@ -120,9 +17,7 @@ export function DropDown({ devices }: DevicesTableProps): JSX.Element {
         await Axios.get('http://localhost:8080/devices')
           .then(function (response) {
             data = response.data._embedded.devices
-            //console.log(data)
             data?.map((device) => {
-                //console.log(device)
                 arrayOfGateways.push(device)
             })
             console.log()
@@ -139,7 +34,12 @@ export function DropDown({ devices }: DevicesTableProps): JSX.Element {
     //let data1: any[] = []
     let data = Promise.resolve(getData())
     
-    //console.log( data )
+    async function printOut(){
+        (await data)?.map((device: any) => {
+            console.log(device)
+        })
+    }
+    
 
     var [state, setState] = React.useState(false);
     var [deviceType, setDeviceType] = React.useState('Test Drop Down');
@@ -164,8 +64,8 @@ export function DropDown({ devices }: DevicesTableProps): JSX.Element {
         return data
     }
 
-    
-    
+    console.log(data)
+    printOut()
     return (
     <div>
         
