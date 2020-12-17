@@ -110,8 +110,37 @@ function countZWave ( devices: any ){
     return totalZWave
 }
 
-export default function DropDown({ devices }: DevicesTableProps): JSX.Element {
+export function DropDown({ devices }: DevicesTableProps): JSX.Element {
     
+
+    async function getData(){
+        let data: any[] = [];
+        let arrayOfGateways: any[] = [];
+
+        await Axios.get('http://localhost:8080/devices')
+          .then(function (response) {
+            data = response.data._embedded.devices
+            //console.log(data)
+            data?.map((device) => {
+                //console.log(device)
+                arrayOfGateways.push(device)
+            })
+            console.log()
+          })
+          
+          .catch(function (error) {
+            console.log(error);
+          });
+
+        //return arrayOfGateways
+        return Promise.resolve(data)
+    }
+    
+    //let data1: any[] = []
+    let data = Promise.resolve(getData())
+    
+    //console.log( data )
+
     var [state, setState] = React.useState(false);
     var [deviceType, setDeviceType] = React.useState('Test Drop Down');
 

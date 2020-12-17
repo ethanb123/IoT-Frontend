@@ -29,7 +29,6 @@ class DevicesService {
 
 
     edit(device: any) {
-        
         axios.put("http://localhost:3000/devices/"+device.id, device);
         return device.id;
     }

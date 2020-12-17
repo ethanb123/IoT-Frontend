@@ -76,6 +76,7 @@ export default function GatewayForm({ loading, onCreateDevice }: GatewayFormProp
                         placeholder="Mac Address"
                         id="macAddress"
                         rules={{ required: true }}
+                        pattern="^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$"
                     />
                     {errors.name &&
                         <div className="alert alert-danger" role="alert">
@@ -92,6 +93,7 @@ export default function GatewayForm({ loading, onCreateDevice }: GatewayFormProp
                         placeholder="IP Address"
                         id="ip"
                         rules={{ required: true }}
+                        pattern = "^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
                     />
                     {errors.name &&
                         <div className="alert alert-danger" role="alert">

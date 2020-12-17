@@ -16,7 +16,7 @@ import {
 } from "reactstrap";
 import { useForm, Controller } from "react-hook-form";
 import { Device } from "./redux/devices-state";
-import DropDown from "./Tables/DropDown"
+import { DropDown } from "./Tables/DropDown"
 import devicesService from "devices/services/devices-service";
 
 interface DevicesTableProps {
@@ -57,6 +57,7 @@ function findGateways( devices: any ) {
 }
 
 export default function DevicesForm({ loading, onCreateDevice, }: DevicesFormProps, { devices }: DevicesTableProps): JSX.Element {
+    
     const { register, errors, control, handleSubmit } = useForm<FormInput>();
     var [state, setState] = React.useState(false);
     var [deviceType, setDeviceType] = React.useState('Select Device Type');
@@ -66,7 +67,7 @@ export default function DevicesForm({ loading, onCreateDevice, }: DevicesFormPro
     }
 
     const onSubmitDevice = (data: FormInput) => {
-        //window.location.reload()
+        window.location.reload()
         onCreateDevice(data.name, data.macAddress, data.ip, false, deviceType, data.cpID);
     };
 
@@ -79,7 +80,7 @@ export default function DevicesForm({ loading, onCreateDevice, }: DevicesFormPro
     }
     
     return <Card className="col-lg-6">
-        
+
         {/*DEVICE ENROLLMENT*/}
         <CardHeader>
             <h3 className="mb-0">DEVICE ENROLLEMENT</h3>
