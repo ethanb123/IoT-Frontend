@@ -230,8 +230,11 @@ export function DevicesForm({ loading, onCreateDevice, devices }: DevicesFormPro
                         {console.log(devices)}
                         {devices?.map(device=> {
                             console.log(device.name)
-                            return <DropdownItem onClick={()=>handleGateway(device.name)}> {device.name}
+                            if(device.isGateway){
+                                return <DropdownItem onClick={()=>handleGateway(device.name)}> {device.name}
                                 </DropdownItem>
+                            }
+                            
                         })}
                     </DropdownMenu>
                 </Dropdown>
