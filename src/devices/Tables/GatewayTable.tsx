@@ -72,7 +72,7 @@ export default function DevicesTable({ devices }: DevicesTableProps): JSX.Elemen
                         
                         <th scope="row">
                         <Button outline color="danger" onClick={ (e) => 
-                            console.log( devicesService.delete(device.id), 
+                            console.log( devicesService.deleteGateway(device.id), 
                             window.location.reload()
                             ) }>Delete</Button>
                         </th>

@@ -22,15 +22,16 @@ export default function NavigationBar(): JSX.Element {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             
+            
             <NavItem>
-              <NavLink href="/devicepage/">
-                Devices
+              <NavLink href="/gatewaypage/">
+                Gateways
               </NavLink>
             </NavItem>
 
             <NavItem>
-              <NavLink href="/gatewaypage/">
-                Gateways
+              <NavLink href="/devicepage/">
+                Devices
               </NavLink>
             </NavItem>
             

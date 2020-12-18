@@ -15,7 +15,6 @@ import {
 } from "reactstrap";
 import { useForm, Controller } from "react-hook-form";
 import { Device } from "./redux/devices-state";
-import Axios from "axios";
 
 interface FormInput {
     name: string;
@@ -33,31 +32,24 @@ interface DevicesFormProps {
 
 export function DevicesForm({ loading, onCreateDevice, devices }: DevicesFormProps): JSX.Element {
     
-    const { register, errors, control, handleSubmit } = useForm<FormInput>();
-    var [state, setState] = React.useState(false);
+    const { errors, control, handleSubmit } = useForm<FormInput>();
     var [deviceType, setDeviceType] = React.useState('Select Device Type');
     var [gatewayName, setGatewayName] = useState(null);
     var [gatewayID, setGatewayID] = useState(0);
     var [dropdownOpen, setDropdownOpen] = useState(false);
     const toggle = () => { setDropdownOpen(!dropdownOpen) }
 
-    const handleClick = (event: React.SetStateAction<boolean>) => {
-        setState(event)
-    }
-
     const onSubmitDevice = (data: FormInput) => {
         window.location.reload()
         onCreateDevice(data.name, data.macAddress, data.ip, false, deviceType, gatewayID);
     };
-    
-    
-    //const [gateways, setGateways] = useState([]);
 
     const handleGateway = (device: any) => {
         console.log('handle gateway')
         console.log(device)
         setGatewayName(device.name);
         setGatewayID(device.id);
+        setDeviceType(device.deviceType)
         setDropdownOpen(false);
     }
     
@@ -118,44 +110,6 @@ export function DevicesForm({ loading, onCreateDevice, devices }: DevicesFormPro
                     {errors.ip &&
                         <div className="alert alert-danger" role="alert">
                             <strong>IP Address</strong> is required
-                                </div>}
-                </FormGroup>
-
-                <FormGroup>
-                    <Controller
-                        as={Input}
-                        name="cpID"
-                        control={control}
-                        defaultValue=""
-                        placeholder="Gateway ID"
-                        id="cpID"
-                        rules={{ required: true }}
-                    />
-                    {errors.name &&
-                        <div className="alert alert-danger" role="alert">
-                            <strong>Gateway ID</strong> is required
-                                   </div>}
-                </FormGroup>
-
-                <FormGroup>  
-                    <Dropdown isOpen={state} toggle={() => handleClick(!state)}>
-                        <DropdownToggle caret>{deviceType}</DropdownToggle>
-                        <DropdownMenu>
-                        <DropdownItem onClick={() =>  setDeviceType("WiFi") } dropDownValue="Prod A">
-                            WiFi
-                        </DropdownItem>
-                        <DropdownItem onClick={() => setDeviceType("Zigbee")} dropDownValue="Prod B">
-                            Zigbee
-                        </DropdownItem>
-                        <DropdownItem onClick={() => setDeviceType("Z-Wave")} dropDownValue="Prod C">
-                            Z-Wave
-                        </DropdownItem>
-                        </DropdownMenu>
-                    </Dropdown>
-                    
-                    {errors.name &&
-                        <div className="alert alert-danger" role="alert">
-                            <strong>Device Type</strong> is required
                                 </div>}
                 </FormGroup>
 

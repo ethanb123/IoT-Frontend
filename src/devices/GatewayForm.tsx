@@ -42,6 +42,7 @@ export default function GatewayForm({ loading, onCreateDevice }: GatewayFormProp
         setState(event)
     }
 
+
     return <Card className="col-lg-6">
         <CardHeader>
             <h3 className="mb-0">GATEWAY ENROLLEMENT</h3>

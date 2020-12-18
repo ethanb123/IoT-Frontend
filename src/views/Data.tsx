@@ -50,7 +50,7 @@ function Devices({
                    
 
                     <Row className="mt-5 justify-content-md-center">
-                        <DataTable devices={devices} />
+                        <DataTable devices={devices} onCreateDevice={createDevice} loading={loading} />
                     </Row>
                 </Col>
 
