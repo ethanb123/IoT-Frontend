@@ -12,22 +12,9 @@ import Data from "views/Data";
 import GatewayPage from "views/GatewayPage";
 import HomePage from "views/HomePage";
 import GatewayView from "views/GatewayView";
-/* 
-      ^- ToDo Landing page -^ 
-  -stats:
-    -number of devices
-    -number of gateways
-    -connection types:
-      -zigbee, wifi, etc
 
-        ^- ToDo Devices -^
- -dynamically changing drop down menu
- 
-      ^- ToDo Gateways -^   
-      
+/*
       ^- ToDo Data -^ 
-      -edit button (edit items directly)   
-      -save
       -search function *later*
 
       ^- ToDo Help -^ 
@@ -36,8 +23,6 @@ import GatewayView from "views/GatewayView";
       
       ^-Overall-^
       -dark theme
-
- 
 */
 
 function App() {

@@ -257,21 +257,8 @@ export default function VerticalTabs() {
       <TabPanel value={value} index={4}>
         <div>
           <h3>Finding the System Type</h3>
-          <div>
-            <Tabs
-            orientation="horizontal"
-            variant="standard"
-            value={hValue}
-            onChange={handleChangeHorizontal}
-            aria-label="Vertical tabs example"
-            className={classes.tabsHorizontal}
-          >
-            <Tab label="Device Types" {...a11yPropsH(0)} />
-            
-          </Tabs>
-          <TabPanel value={hValue} index={0}>
-            <div>
-            There are currently 3 supported Device Types (WIFI, Zigbee, Z-Wave). In order to find which device type your system runs on you should contact the manufacturer.
+            <br />
+            There are currently 3 supported Device Types <a href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" style={{color: 'black'}}>(WIFI, Zigbee, Z-Wave)</a>. In order to find which device type your system runs on you should contact the manufacturer.
             <br />
             <br />
             WIFI is a family of wireless network protocols, based on the IEEE 802.11 family of standards, which are commonly used for local area networking of devices and Internet access.
@@ -288,9 +275,9 @@ export default function VerticalTabs() {
             Internet from a smart phone, tablet or computer, and locally through a smart speaker, wireless keyfob, or wall-mounted panel with a Z-Wave gateway or central control 
             device serving as both the hub controller and portal to the outside.
             </div>
-          </TabPanel>
-        </div>
-        </div>
+          
+        
+        
       </TabPanel>
       
     </div>
