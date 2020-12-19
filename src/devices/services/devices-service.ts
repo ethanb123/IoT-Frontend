@@ -21,17 +21,6 @@ class DevicesService {
 
         return await this.devices();
     }
-    
-    delete(id: any) {
-        axios.delete("http://localhost:3000/devices/delete/"+id);
-        return id;
-    }
-
-    deleteGateway(id: any) {
-        axios.delete("http://localhost:3000/devices/deleteGateway/"+id);
-        return id;
-    }
-
 
     edit(id: number, name: string, macAddress: string, ip: string, isGateway: boolean, deviceType: String, cpID: number) {
         axios.put("http://localhost:3000/devices/"+id, {
@@ -43,6 +32,16 @@ class DevicesService {
             "cpID": cpID
           });
         return name;
+    }
+    
+    delete(id: any) {
+        axios.delete("http://localhost:3000/devices/delete/"+id);
+        return id;
+    }
+
+    deleteGateway(id: any) {
+        axios.delete("http://localhost:3000/devices/deleteGateway/"+id);
+        return id;
     }
 
     async devices(): Promise<Device[]> {

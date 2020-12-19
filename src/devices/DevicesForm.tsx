@@ -42,11 +42,6 @@ export function DevicesForm({ loading, onCreateDevice, devices }: DevicesFormPro
     const onSubmitDevice = (data: FormInput) => {
         window.location.reload()
         onCreateDevice(data.name, data.macAddress, data.ip, false, deviceType, gatewayID);
-        /*
-        console.log('output')
-        console.log('name: '+data.name)
-        console.log('ip: '+data.ip)
-        */
     };
 
     const handleGateway = (device: any) => {
@@ -116,7 +111,6 @@ export function DevicesForm({ loading, onCreateDevice, devices }: DevicesFormPro
                                 </div>}
                 </FormGroup>
 
-                {/*<DropDown />*/}
                 <Dropdown isOpen={dropdownOpen} toggle={toggle}>
                 <DropdownToggle caret>
                     {gatewayName?gatewayName:"Selected Gateway"}

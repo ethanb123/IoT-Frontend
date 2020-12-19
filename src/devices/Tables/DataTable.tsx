@@ -72,12 +72,10 @@ export default function DevicesTable({ loading, devices }: DevicesTableProps): J
                 }>Devices</Button>
             );
         }else{
-            return (
-                ""
-            );
+            return ("");
         }
-
     }
+
     return <Table className="align-items-center" responsive hover striped>
         
         <thead className="thead-light">
@@ -176,6 +174,7 @@ export default function DevicesTable({ loading, devices }: DevicesTableProps): J
                                 }>Edit</Button>
                             </th>
 
+                            {/* Gateway Label */}         
                             <th scope="row">
                                 {checkIfGateway(device)}
                             </th>
@@ -206,23 +205,22 @@ export default function DevicesTable({ loading, devices }: DevicesTableProps): J
                             </th>
                             
                             <th scope="row">
-                            <Button outline color="danger" onClick={ (e) => 
-                                console.log( devicesService.delete(device.id), 
-                                window.location.reload()
+                                <Button outline color="danger" onClick={ () => 
+                                    console.log( devicesService.delete(device.id), 
+                                    window.location.reload()
                                 ) }>Delete</Button>
                             </th>
                             
                             <th scope="row">
-                            
-                            <Button outline color="danger" onClick={ (e) => {
-                                nameSet(device.name!)
-                                ipSet(device.ip!)
-                                macAddressSet(device.macAddress!)
-                                setIsGateway(device.isGateway!)
-                                setcpID(device.cpID!)
-                                setDeviceType(device.deviceType!)
+                                <Button outline color="danger" onClick={ () => {
+                                    nameSet(device.name!)
+                                    ipSet(device.ip!)
+                                    macAddressSet(device.macAddress!)
+                                    setIsGateway(device.isGateway!)
+                                    setcpID(device.cpID!)
+                                    setDeviceType(device.deviceType!)
 
-                                setEditRow(device.id!)
+                                    setEditRow(device.id!)
                                 }}>Edit</Button>
                             </th>
 
@@ -232,10 +230,8 @@ export default function DevicesTable({ loading, devices }: DevicesTableProps): J
                             
                         </tr>
                     );
-                }
-                 
+                }   
             })}
-            
         </tbody>
         
     </Table>;

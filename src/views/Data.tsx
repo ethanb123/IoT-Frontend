@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import { connect, ConnectedProps } from "react-redux";
-
 import { RootState } from "redux/root-reducer";
-
 import {
     Container,
     Row,
@@ -25,7 +23,6 @@ const mapDispatch = {
 
 const connector = connect(mapState, mapDispatch);
 type PropsFromRedux = ConnectedProps<typeof connector>;
-
 type Props = PropsFromRedux;
 
 function Devices({
@@ -44,17 +41,13 @@ function Devices({
         <>
             <Container className="mt--6 d-flex justify-content-center" >
                 <Col >
-                   
-
                     <Row className="mt-5 justify-content-md-center">
                         <DataTable devices={devices} loading={loading} />
                     </Row>
                 </Col>
-
             </Container>
         </>
     );
 }
-
 
 export default connector(Devices);

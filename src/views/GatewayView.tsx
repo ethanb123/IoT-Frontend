@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "redux/root-reducer";
-
 import {
     Container,
     Row,
@@ -9,7 +8,6 @@ import {
 } from "reactstrap";
 import { actions as devicesActions } from "../devices/redux/devices-actions";
 import { actions as systemActions } from "../redux/system-actions";
-
 import Edit from "./GatewayViewPage";
 
 const mapState = (state: RootState) => ({
@@ -25,7 +23,6 @@ const mapDispatch = {
 
 const connector = connect(mapState, mapDispatch);
 type PropsFromRedux = ConnectedProps<typeof connector>;
-
 type Props = PropsFromRedux;
 
 function Devices({
@@ -48,11 +45,9 @@ function Devices({
                         <Edit devices={devices} />
                     </Row>
                 </Col>
-
             </Container>
         </>
     );
 }
-
 
 export default connector(Devices);

@@ -46,7 +46,6 @@ export default function Edit({ devices }: DevicesTableProps): JSX.Element {
                 </thead>
                 <tbody>
                     {devices?.map((device) => {
-                        //console.log(device.id)
                         if(device?.id === idNumber){
                             return (
                                 <tr key={device.id}>
@@ -55,37 +54,30 @@ export default function Edit({ devices }: DevicesTableProps): JSX.Element {
                                     </th>
 
                                     <th scope="row">
-                                    <label>{device.macAddress}</label>
+                                        <label>{device.macAddress}</label>
                                     </th>
 
                                     <th scope="row">
-                                    <label>{device.ip}</label>
+                                        <label>{device.ip}</label>
                                     </th>
 
                                     <th scope="row">
-                                    <label>{device.deviceType}</label>
+                                        <label>{device.deviceType}</label>
                                     </th>
                                     
                                     <th scope="row">
-                                    <Button outline color="danger" onClick={ (e) => 
-                                        console.log( devicesService.delete(device.id), 
-                                        window.location.reload()
+                                        <Button outline color="danger" onClick={ (e) => 
+                                            console.log( devicesService.delete(device.id), 
+                                            window.location.reload()
                                         ) }>Delete</Button>
                                     </th>
-
-                                        {/* 
-                                    <th scope="row">
-                                    <Button outline color="danger" onClick={(e) => onClick(device.id)}>Edit</Button> 
-                                    </th>
-                                            */}
                                     
                                 </tr>
-                            ); }
-
+                            ) 
+                        }
                     })}
-                    
                 </tbody>
-            </Table>;
+            </Table>
 
             <h1>Devices</h1>
 
@@ -116,7 +108,6 @@ export default function Edit({ devices }: DevicesTableProps): JSX.Element {
                 </thead>
                 <tbody>
                     {devices?.map((device) => {
-                        console.log(device.cpID)
                         if(device?.cpID === idNumber){
                             return (
                                 <tr key={device.id}>
@@ -125,38 +116,31 @@ export default function Edit({ devices }: DevicesTableProps): JSX.Element {
                                     </th>
 
                                     <th scope="row">
-                                    <label>{device.macAddress}</label>
+                                        <label>{device.macAddress}</label>
                                     </th>
 
                                     <th scope="row">
-                                    <label>{device.ip}</label>
+                                        <label>{device.ip}</label>
                                     </th>
 
                                     <th scope="row">
-                                    <label>{device.deviceType}</label>
+                                        <label>{device.deviceType}</label>
                                     </th>
                                     
                                     <th scope="row">
-                                    <Button outline color="danger" onClick={ (e) => 
-                                        console.log( devicesService.delete(device.id), 
-                                        window.location.reload()
+                                        <Button outline color="danger" onClick={ (e) => 
+                                            console.log( devicesService.delete(device.id), 
+                                            window.location.reload()
                                         ) }>Delete</Button>
                                     </th>
-
-                                        {/* 
-                                    <th scope="row">
-                                    <Button outline color="danger" onClick={(e) => onClick(device.id)}>Edit</Button> 
-                                    </th>
-                                            */}
                                     
                                 </tr>
-                            ); }
-
+                            ) 
+                        }
                     })}
-                    
                 </tbody>
-            </Table>;
+            </Table>
 
         </div>
-        )
+    )
 }

@@ -9,13 +9,13 @@ interface DevicesTableProps {
 
 function countDevicesGateways ( devices: any ){
     let totalDevicesGateways = 0;
-    {devices?.map((device: any) => {        
+    devices?.map((device: any) => {        
         return (
             <br key={device.id}>
                 {totalDevicesGateways++}
             </br>
         )
-    })}
+    })
     return totalDevicesGateways
 }
 
@@ -27,13 +27,13 @@ function countDevices ( devices: any ){
         }
         return ""
     }
-    {devices?.map((device: any) => {        
+    devices?.map((device: any) => {        
         return (
             <br key={device.id}>
                 {isGateway(device)}
             </br>
         )
-    })}
+    })
     return totalDevices
 }
 
@@ -45,13 +45,13 @@ function countGateways ( devices: any ){
         }
         return ""
     }
-    {devices?.map((device: any) => {        
+    devices?.map((device: any) => {        
         return (
             <br key={device.id}>
                 {isGateway(device)}
             </br>
         )
-    })}
+    })
     return totalGateways
 }
 
@@ -63,13 +63,13 @@ function countWiFi ( devices: any ){
         }
         return ""
     }
-    {devices?.map((device: any) => {        
+    devices?.map((device: any) => {        
         return (
             <br key={device.id}>
                 {isWiFi(device)}
             </br>
         )
-    })}
+    })
     return totalWiFi
 }
 
@@ -81,13 +81,13 @@ function countZigbee ( devices: any ){
         }
         return ""
     }
-    {devices?.map((device: any) => {        
+    devices?.map((device: any) => {        
         return (
             <br key={device.id}>
                 {isZigbee(device)}
             </br>
         )
-    })}
+    })
     return totalZigbee
 }
 
@@ -99,13 +99,13 @@ function countZWave ( devices: any ){
         }
         return ""
     }
-    {devices?.map((device: any) => {        
+    devices?.map((device: any) => {        
         return (
             <br key={device.id}>
                 {isZWave(device)}
             </br>
         )
-    })}
+    })
     return totalZWave
 }
 
