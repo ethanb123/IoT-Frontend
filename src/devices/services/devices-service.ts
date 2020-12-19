@@ -33,8 +33,8 @@ class DevicesService {
     }
 
 
-    edit(name: string, macAddress: string, ip: string, isGateway: boolean, deviceType: String, cpID: number) {
-        axios.put("http://localhost:3000/devices", {
+    edit(id: number, name: string, macAddress: string, ip: string, isGateway: boolean, deviceType: String, cpID: number) {
+        axios.put("http://localhost:3000/devices/"+id, {
             "name": name,
             "macAddress": macAddress,
             "ip": ip,

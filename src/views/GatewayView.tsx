@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { connect, ConnectedProps } from "react-redux";
-
 import { RootState } from "redux/root-reducer";
 
 import {
@@ -10,7 +9,8 @@ import {
 } from "reactstrap";
 import { actions as devicesActions } from "../devices/redux/devices-actions";
 import { actions as systemActions } from "../redux/system-actions";
-import DataTable from "../devices/Tables/DataTable";
+
+import Edit from "./GatewayViewPage";
 
 const mapState = (state: RootState) => ({
     loading: state.devices.loading,
@@ -44,10 +44,8 @@ function Devices({
         <>
             <Container className="mt--6 d-flex justify-content-center" >
                 <Col >
-                   
-
                     <Row className="mt-5 justify-content-md-center">
-                        <DataTable devices={devices} loading={loading} />
+                        <Edit devices={devices} />
                     </Row>
                 </Col>
 

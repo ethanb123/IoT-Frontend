@@ -76,10 +76,11 @@ export default function DevicesTable({ devices }: DevicesTableProps): JSX.Elemen
                             window.location.reload()
                             ) }>Delete</Button>
                         </th>
-                        
+                        {/* 
                         <th scope="row">
                         <Button outline color="danger" onClick={(e) => onClick(device.id)}>Edit</Button> 
                         </th>
+                        */}
 
                     </tr>
                 ); }

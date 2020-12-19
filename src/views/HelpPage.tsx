@@ -59,8 +59,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   tabsHorizontal: {
     borderRight: `0px solid ${theme.palette.divider}`,
-    width: 500,
-    minWidth: 500
+    width: 600,
+    minWidth: 600
   },
 }));
 
@@ -92,7 +92,7 @@ export default function VerticalTabs() {
         <Tab label="Gateway Help:" {...a11yProps(1)} />
         <Tab label="Locating Mac Address:" {...a11yProps(2)} />
         <Tab label="Locating IP Address:" {...a11yProps(3)} />
-        <Tab label="Locating Device Type:" {...a11yProps(4)} />
+        <Tab label="Device Type Information:" {...a11yProps(4)} />
         
       </Tabs>
       <TabPanel value={value} index={0}>
@@ -266,34 +266,31 @@ export default function VerticalTabs() {
             aria-label="Vertical tabs example"
             className={classes.tabsHorizontal}
           >
-            <Tab label="Device Enrollment" {...a11yPropsH(0)} />
-            <Tab label="Device Edit" {...a11yPropsH(1)} />
-            <Tab label="Device Delete" {...a11yPropsH(2)} />
+            <Tab label="Device Types" {...a11yPropsH(0)} />
             
           </Tabs>
           <TabPanel value={hValue} index={0}>
             <div>
-            To add a device, you go to the "Devices" tab which will bring up the "Device Enrollment" stage. From here, you add a Name for the device. 
-        You then add the Mac Address of the device, this will be found either on the physical device or within an app on the device (See user manual). 
-        Next, you will add the IP Address of the device which will be found on the physical device. Finally, you will choose the "Gateway" that you are connecting it to. 
-        You click the drop down menu and select the gateway for the device.
-            </div>
-          </TabPanel>
-          <TabPanel value={hValue} index={1}>
-            <div>
-            To edit a device you have inputed, navigate to the "Devices" tab. Find the name of the device you would like to edit, 
-        and click the "EDIT" button found to the right of it. This will allow text to be changed so you can make adjustments as needed. 
-            </div>
-          </TabPanel>
-          <TabPanel value={hValue} index={2}>
-            <div>
-            To remove a device you have inputed, navigate to the "Devices" tab. Find the name of the device you would like to delete, 
-        and click the "DELETE" button found to the right of it.
+            There are currently 3 supported Device Types (WIFI, Zigbee, Z-Wave). In order to find which device type your system runs on you should contact the manufacturer.
+            <br />
+            <br />
+            WIFI is a family of wireless network protocols, based on the IEEE 802.11 family of standards, which are commonly used for local area networking of devices and Internet access.
+            <br />
+            <br />
+            Zigbee is an IEEE 802.15.4-based specification for a suite of high-level communication protocols used to create personal area networks with small, 
+            low-power digital radios, such as for home automation, medical device data collection, and other low-power low-bandwidth needs, designed for small 
+            scale projects which need wireless connection. Hence, Zigbee is a low-power, low data rate, and close proximity (i.e., personal area) wireless ad hoc network.
+            <br />
+            <br />
+            Z-Wave is a wireless communications protocol used primarily for home automation. It is a mesh network using low-energy radio waves to communicate from appliance 
+            to appliance,[1] allowing for wireless control of residential appliances and other devices, such as lighting control, security systems, thermostats, windows, locks, 
+            swimming pools and garage door openers.[2][3] Like other protocols and systems aimed at the home and office automation market, a Z-Wave system can be controlled via the 
+            Internet from a smart phone, tablet or computer, and locally through a smart speaker, wireless keyfob, or wall-mounted panel with a Z-Wave gateway or central control 
+            device serving as both the hub controller and portal to the outside.
             </div>
           </TabPanel>
         </div>
         </div>
-        To find the devices MAC Address you go to your device settings, go to network settings, and locate it there.
       </TabPanel>
       
     </div>

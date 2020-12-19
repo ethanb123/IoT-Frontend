@@ -42,6 +42,8 @@ export function DevicesTable({ devices }: DevicesTableProps): JSX.Element {
                 {["Delete Device"].map((name) => (
                     <th scope="col">{name}</th>
                 ))}
+
+                
             </tr>
         </thead>
         <tbody>
@@ -76,11 +78,11 @@ export function DevicesTable({ devices }: DevicesTableProps): JSX.Element {
                             ) }>Delete</Button>
                         </th>
 
-
+                            {/* 
                         <th scope="row">
                         <Button outline color="danger" onClick={(e) => onClick(device.id)}>Edit</Button> 
                         </th>
-
+                                */}
                         
                     </tr>
                 ); }

@@ -1,27 +1,17 @@
 import React, { useState } from "react";
 import {
-    Table, Button, FormGroup, Input, Label, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Form,
+    Table, Button, Dropdown, DropdownItem, DropdownMenu, DropdownToggle,
 } from "reactstrap";
-import { Device } from "../redux/devices-state";
+import { Device } from "devices/redux/devices-state";
 import devicesService from "devices/services/devices-service";
-import { Controller, useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
 
 interface DevicesTableProps {
     devices?: Device[];
-    onCreateDevice: (name: string, macAddress: string, ip: string, isGateway: boolean, deviceType: string, cpID: number) => void;
     loading: boolean;
 }
 
-interface FormInput {
-    name: string;
-    macAddress: string;
-    ip: string;
-    isGateway: boolean;
-    cpID: number;
-}
-
 function gatewayLabelGen (device: any) {
-    console.log("isGateway: "+device.isGateway)
     if(device?.isGateway) {
         return "Gateway"
     }else{
@@ -29,40 +19,65 @@ function gatewayLabelGen (device: any) {
     }
 }
 
-export default function DevicesTable({ loading, devices, onCreateDevice }: DevicesTableProps): JSX.Element {
-    const { errors, control, handleSubmit } = useForm<FormInput>();
-    var [deviceType, setDeviceType] = React.useState('Select Device Type');
+export default function DevicesTable({ loading, devices }: DevicesTableProps): JSX.Element {
     var [state, setState] = React.useState(false);
     var [editRow, setEditRow] = useState(0);
-
     var [name, setName] = useState('');
     var [macAddress, setMacAddress] = useState('');
     var [ip, setIp] = useState('');
     var [deviceType, setDeviceType] = useState('');
-    var [isGateway, setIsGateway] = useState('');
-    var [cpID, setcpID] = useState('');
+    var [isGateway, setIsGateway] = useState(false);
+    var [cpID, setcpID] = useState(0);
 
-    function StartEdit(id: number) {
-        setEditRow(id)
-    }
+    let history = useHistory()
 
     const handleClick = (event: React.SetStateAction<boolean>) => {
         setState(event)
     }
 
-    function connectionType(device: any) {
-        setDeviceType(device?.deviceType)
+    function saveEdit (id: number) {
+        //console.log('id '+id+" name: "+name+" macAddress: "+macAddress+" ip: "+ip+" isGateway: "+isGateway.toString()+" deviceType: "+deviceType+" cpID "+cpID)
+        devicesService.edit(id, name, macAddress, ip, isGateway, deviceType, cpID)
+        window.location.reload()
     }
 
-    const onSubmitDevice = (data: FormInput) => {
-        //window.location.reload()
-        /*onCreateDevice(data.name, data.macAddress, data.ip, false, deviceType, data.cpID);*/
-    };
+    function nameSet(nameInput: string){
+        if (name !== nameInput) {
+            setName(nameInput)
+        }
+        return name
+    }
 
-    function saveEdit (device: any) {
-        devicesService.edit(device.name, device?.macAddress, device.ip, device.isGateway, device.deviceType, device.cpID)
+    function macAddressSet(macInput: string){       
+        if (macAddress !== macInput) {
+            setMacAddress(macInput)
+        }
+        console.log(macAddress)
+        return macAddress
+    }
+
+    function ipSet(ipInput: string){
+        if (ip !== ipInput) {
+            setIp(ipInput)
+        }
+        return ip
     }
     
+    function checkIfGateway(device: any) {
+        console.log('test')
+        if(device.isGateway === true) {
+            return (
+                <Button outline color="danger" onClick={ (e) =>
+                    history.push("/gatewayview/"+device.id)                         
+                }>Devices</Button>
+            );
+        }else{
+            return (
+                ""
+            );
+        }
+
+    }
     return <Table className="align-items-center" responsive hover striped>
         
         <thead className="thead-light">
@@ -94,112 +109,76 @@ export default function DevicesTable({ loading, devices, onCreateDevice }: Devic
                 {["Edit Device"].map((name) => (
                     <th scope="col">{name}</th>
                 ))}
+
+                {["Connected Devices"].map((name) => (
+                    <th scope="col">{name}</th>
+                ))}
                 
             </tr>
         </thead>
         <tbody>
             {devices?.map((device) => {
-                
                 if(editRow === device.id){
-                    if(deviceType !== device.deviceType){
-                        connectionType(device)
-                    }
-                    
                     return (
                         <tr key={device.id}>
-                            {/*<Form onSubmit={handleSubmit(onSubmitDevice)}>*/}
-                                <th scope="row">
-                                    <FormGroup>
-                                        <Controller
-                                            as={Input}
-                                            name="name"
-                                            control={control}
-                                            defaultValue={device.name}
-                                            placeholder={device.name}
-                                            id="device-name"
-                                            rules={{ required: true }}
-                                        />
-                                        {errors.name &&
-                                            <div className="alert alert-danger" role="alert">
-                                                <strong>Device name</strong> is required
-                                                    </div>}
-                                    </FormGroup>
-                                </th>
+                            
+                            {/* Name Edit Field */}
+                            <th scope="row">
+                                <input defaultValue={device.name} onChange={event => nameSet(event.target.value)} />
+                            </th>
+    
+                            {/* Mac Address Edit Field */}
+                            <th scope="row">
+                                <input defaultValue={device.macAddress} onChange={event => macAddressSet(event.target.value)} />
+                            </th>
+                            
+                            {/* Ip Address Edit Field */}
+                            <th scope="row">
+                                <input defaultValue={device.ip} onChange={event => ipSet(event.target.value)} />
+                            </th>
         
-                                <th scope="row">
-                                    <FormGroup>            
-                                        <Controller
-                                            as={Input}
-                                            name="macAddress"
-                                            control={control}
-                                            defaultValue={device.macAddress}
-                                            placeholder={device.macAddress}
-                                            id="macAddress"
-                                            rules={{ required: true }}
-                                            pattern="^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$"
-                                        />
-                                        {errors.macAddress &&
-                                            <div className="alert alert-danger" role="alert">
-                                                <strong>Mac Address</strong> is required
-                                                    </div>}
-                                    </FormGroup>
-                                </th>
-        
-                                <th scope="row">
-                                    <FormGroup>            
-                                        <Controller
-                                            as={Input}
-                                            name="ip"
-                                            control={control}
-                                            defaultValue={device.ip}
-                                            placeholder={device.ip}
-                                            id="ip"
-                                            rules={{ required: true }}
-                                            pattern = "^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
-                                        />
-                                        {errors.ip &&
-                                            <div className="alert alert-danger" role="alert">
-                                                <strong>IP Address</strong> is required
-                                                    </div>}
-                                    </FormGroup>
-                                </th>
-            
-                                <th scope="row">
-                                
+                            {/* Connection Type Edit Field */}
+                            <th scope="row">
                                 <Dropdown isOpen={state} toggle={() => handleClick(!state)}>
-                                    
                                     <DropdownToggle caret>{deviceType}</DropdownToggle>
                                     <DropdownMenu>
-                                    <DropdownItem onClick={() =>  setDeviceType("WiFi") } dropDownValue="Prod A">
-                                        WiFi
-                                    </DropdownItem>
-                                    <DropdownItem onClick={() => setDeviceType("Zigbee")} dropDownValue="Prod B">
-                                        Zigbee
-                                    </DropdownItem>
-                                    <DropdownItem onClick={() => setDeviceType("Z-Wave")} dropDownValue="Prod B">
-                                        Z-Wave
-                                    </DropdownItem>
+                                        <DropdownItem onClick={() => setDeviceType("WiFi") } dropDownValue="Prod A">
+                                            WiFi
+                                        </DropdownItem>
+                                        <DropdownItem onClick={() => setDeviceType("Zigbee")} dropDownValue="Prod B">
+                                            Zigbee
+                                        </DropdownItem>
+                                        <DropdownItem onClick={() => setDeviceType("Z-Wave")} dropDownValue="Prod B">
+                                            Z-Wave
+                                        </DropdownItem>
                                     </DropdownMenu>
                                 </Dropdown>
-                                </th>
-                                
-                                <th scope="row">
-                                <label>{ gatewayLabelGen(device.isGateway) }</label>
-                                </th>
-                                
-                                <th scope="row">
-                                <Button outline color="danger" onClick={ (e) => 
-                                    saveEdit(device)
-                                     }>Save</Button>
-                                </th>
-                                
-                                <th scope="row">
-                                
+                            </th>
+                            
+                            {/* Gateway Label */}
+                            <th scope="row">
+                                <label>{ gatewayLabelGen(device) }</label>
+                            </th>
+                            
+                            {/* Save Button */}
+                            <th scope="row">
+                                <Button outline color="danger" type="submit" disabled={loading}
+                                    onClick={ async (e) =>  
+                                        saveEdit(device.id!)
+                                    }
+                                >Save</Button>
+                            </th>
+                            
+                            {/* Edit Button */}
+                            <th scope="row">
                                 <Button outline color="danger" onClick={ (e) =>
-                                    StartEdit( 0 )                               
-                                    }>Edit</Button>
-                                </th>
-                            {/*</Form>*/}
+                                    setEditRow(0)                          
+                                }>Edit</Button>
+                            </th>
+
+                            <th scope="row">
+                                {checkIfGateway(device)}
+                            </th>
                             
                         </tr>
                     );
@@ -235,9 +214,20 @@ export default function DevicesTable({ loading, devices, onCreateDevice }: Devic
                             
                             <th scope="row">
                             
-                            <Button outline color="danger" type="submit" disabled={loading} onClick={ (e) =>
-                                StartEdit( device.id! )
-                                 }>Edit</Button>
+                            <Button outline color="danger" onClick={ (e) => {
+                                nameSet(device.name!)
+                                ipSet(device.ip!)
+                                macAddressSet(device.macAddress!)
+                                setIsGateway(device.isGateway!)
+                                setcpID(device.cpID!)
+                                setDeviceType(device.deviceType!)
+
+                                setEditRow(device.id!)
+                                }}>Edit</Button>
+                            </th>
+
+                            <th scope="row">
+                                {checkIfGateway(device)}
                             </th>
                             
                         </tr>
@@ -247,5 +237,6 @@ export default function DevicesTable({ loading, devices, onCreateDevice }: Devic
             })}
             
         </tbody>
+        
     </Table>;
 }

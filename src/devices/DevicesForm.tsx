@@ -42,11 +42,14 @@ export function DevicesForm({ loading, onCreateDevice, devices }: DevicesFormPro
     const onSubmitDevice = (data: FormInput) => {
         window.location.reload()
         onCreateDevice(data.name, data.macAddress, data.ip, false, deviceType, gatewayID);
+        /*
+        console.log('output')
+        console.log('name: '+data.name)
+        console.log('ip: '+data.ip)
+        */
     };
 
     const handleGateway = (device: any) => {
-        console.log('handle gateway')
-        console.log(device)
         setGatewayName(device.name);
         setGatewayID(device.id);
         setDeviceType(device.deviceType)

@@ -11,7 +11,7 @@ import DevicePage from "views/DevicesPage";
 import Data from "views/Data";
 import GatewayPage from "views/GatewayPage";
 import HomePage from "views/HomePage";
-import EditPage from "views/EditPage";
+import GatewayView from "views/GatewayView";
 /* 
       ^- ToDo Landing page -^ 
   -stats:
@@ -68,8 +68,8 @@ function App() {
               <HelpPage />
             </Route>
 
-            <Route path="/editpage">
-               <EditPage />
+            <Route path="/gatewayview">
+               <GatewayView />
             </Route>
 
           </Switch>
